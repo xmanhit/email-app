@@ -20,7 +20,9 @@ function App() {
         return {
           loader: () => ({ email: fakeAuthProvider.email }),
           Component: Layout,
-          ErrorBoundary: RootErrorBoundary,
+          errorElement: (
+            <RootErrorBoundary status="404" message="PAGE NOT FOUND" />
+          ),
         };
       },
       children: [
@@ -46,7 +48,9 @@ function App() {
               action: loginAction,
               loader: loginLoader,
               Component: LoginPage,
-              ErrorBoundary: RootErrorBoundary,
+              errorElement: (
+                <RootErrorBoundary status="404" message="PAGE NOT FOUND" />
+              ),
             };
           },
         },
@@ -59,7 +63,9 @@ function App() {
             return {
               loader: mainLoader,
               Component: MainPage,
-              ErrorBoundary: RootErrorBoundary,
+              errorElement: (
+                <RootErrorBoundary status="404" message="PAGE NOT FOUND" />
+              ),
             };
           },
           children: [
@@ -96,7 +102,12 @@ function App() {
                     return {
                       loader: summaryMessageLoader,
                       Component: SummaryMessagePage,
-                      ErrorBoundary: RootErrorBoundary,
+                      errorElement: (
+                        <RootErrorBoundary
+                          status="404"
+                          message="PAGE NOT FOUND"
+                        />
+                      ),
                     };
                   },
 
@@ -123,7 +134,12 @@ function App() {
                         return {
                           loader: detailMessageLoader,
                           Component: DetailMessagePage,
-                          ErrorBoundary: RootErrorBoundary,
+                          errorElement: (
+                            <RootErrorBoundary
+                              status="404"
+                              message="PAGE NOT FOUND"
+                            />
+                          ),
                         };
                       },
                     },
@@ -162,7 +178,9 @@ function App() {
       path: "/error",
       async lazy() {
         let { RootErrorBoundary } = await import("./pages/Error");
-        return { Component: RootErrorBoundary };
+        return {
+          element: <RootErrorBoundary status="404" message="PAGE NOT FOUND" />,
+        };
       },
     },
     {
@@ -176,7 +194,9 @@ function App() {
       path: "*",
       async lazy() {
         let { RootErrorBoundary } = await import("./pages/Error");
-        return { Component: RootErrorBoundary };
+        return {
+          element: <RootErrorBoundary status="404" message="PAGE NOT FOUND" />,
+        };
       },
     },
   ]);
