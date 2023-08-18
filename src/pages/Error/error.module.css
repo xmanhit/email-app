@@ -48,10 +48,10 @@
       font-weight: 700;
       text-transform: uppercase;
       animation: blink 1.3s infinite steps(1);
-
+      -webkit-animation: blink 1.3s infinite steps(1);
       &:before,
       &:after {
-        content: "ERROR 500";
+        content: attr(data-status);
         position: absolute;
         top: -1px;
         left: 0;
@@ -63,11 +63,13 @@
         clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
         color: #f0f;
         animation: shiftright 200ms steps(2) infinite;
+        -webkit-animation: shiftright 200ms steps(2) infinite;
       }
       &:after {
         clip-path: polygon(0 100%, 100% 100%, 100% 50%, 0 50%);
         color: #0ff;
         animation: shiftleft 200ms steps(2) infinite;
+        -webkit-animation: shiftleft 200ms steps(2) infinite;
       }
     }
     .message {

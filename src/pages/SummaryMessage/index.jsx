@@ -15,7 +15,13 @@ export function SummaryMessagePage() {
 
   useEffect(() => {
     if (folder && currentUserEmail) {
-      setSummaryEmails(new Message(currentUserEmail).foldersMessages[folder]);
+      const newSummaryEmails = new Message(currentUserEmail).foldersMessages[
+        folder
+      ];
+      if (!newSummaryEmails) {
+        throw new Response("Not Found", { status: 404 });
+      }
+      setSummaryEmails(newSummaryEmails);
     }
   }, [folder, currentUserEmail]);
 
@@ -37,7 +43,7 @@ export function SummaryMessagePage() {
         <div className={styles.wrapper}>
           <div className={styles.summaryEmails}>
             <div>
-              {summaryEmails?.map(
+              {summaryEmails.map(
                 ({
                   id,
                   unread,

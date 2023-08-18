@@ -10,16 +10,6 @@ const { Loading } = React.lazy(() => import("./pages/Loading"));
 function App() {
   const router = createBrowserRouter([
     {
-      index: true,
-      async lazy() {
-        console.log(1);
-        let { mainLoader } = await import("./pages/Main");
-        return {
-          loader: mainLoader,
-        };
-      },
-    },
-    {
       id: "root",
       path: "/",
 
@@ -35,24 +25,41 @@ function App() {
       },
       children: [
         {
+          index: true,
+          async lazy() {
+            return {
+              loader: () => {
+                return redirect("main");
+              },
+            };
+          },
+        },
+        {
           path: "login",
           async lazy() {
             let { loginAction, loginLoader, LoginPage } = await import(
               "./pages/Login"
             );
+            let { RootErrorBoundary } = await import("./pages/Error");
+
             return {
               action: loginAction,
               loader: loginLoader,
               Component: LoginPage,
+              ErrorBoundary: RootErrorBoundary,
             };
           },
         },
         {
           path: "main",
           async lazy() {
-            let { MainPage } = await import("./pages/Main");
+            let { mainLoader, MainPage } = await import("./pages/Main");
+            let { RootErrorBoundary } = await import("./pages/Error");
+
             return {
+              loader: mainLoader,
               Component: MainPage,
+              ErrorBoundary: RootErrorBoundary,
             };
           },
           children: [
@@ -84,9 +91,12 @@ function App() {
                   async lazy() {
                     let { summaryMessageLoader, SummaryMessagePage } =
                       await import("./pages/SummaryMessage");
+                    let { RootErrorBoundary } = await import("./pages/Error");
+
                     return {
                       loader: summaryMessageLoader,
                       Component: SummaryMessagePage,
+                      ErrorBoundary: RootErrorBoundary,
                     };
                   },
 
@@ -106,9 +116,14 @@ function App() {
                       async lazy() {
                         let { detailMessageLoader, DetailMessagePage } =
                           await import("./pages/DetailMessage");
+                        let { RootErrorBoundary } = await import(
+                          "./pages/Error"
+                        );
+
                         return {
                           loader: detailMessageLoader,
                           Component: DetailMessagePage,
+                          ErrorBoundary: RootErrorBoundary,
                         };
                       },
                     },
@@ -126,15 +141,6 @@ function App() {
               },
             },
           ],
-        },
-        {
-          path: "*",
-          async lazy() {
-            let { RootErrorBoundary } = await import("./pages/Error");
-            return {
-              errorElement: RootErrorBoundary,
-            };
-          },
         },
       ],
     },
@@ -164,6 +170,13 @@ function App() {
       async lazy() {
         let { Loading } = await import("./pages/Loading");
         return { Component: Loading };
+      },
+    },
+    {
+      path: "*",
+      async lazy() {
+        let { RootErrorBoundary } = await import("./pages/Error");
+        return { Component: RootErrorBoundary };
       },
     },
   ]);

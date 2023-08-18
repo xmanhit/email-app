@@ -45,7 +45,7 @@ export async function loginLoader() {
   if (fakeAuthProvider.isAuthenticated) {
     return redirect("/main");
   }
-  return redirect("/login");
+  return null;
 }
 
 export function LoginPage() {

@@ -22,7 +22,7 @@ export function mainLoader() {
   if (!fakeAuthProvider.isAuthenticated) {
     return redirect("/login");
   }
-  return redirect("/main");
+  return null;
 }
 
 export function MainPage() {
