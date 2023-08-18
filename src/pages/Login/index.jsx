@@ -8,7 +8,7 @@ import {
 import { useMemo, useState } from "react";
 import { fakeAuthProvider } from "../../utils/auth";
 import User from "../../utils/user";
-import styles from "./Login.module.css";
+import styles from "./login.module.css";
 import connectLogoBlack from "../../assets/connect_logo_black.svg";
 
 export async function loginAction({ request }) {

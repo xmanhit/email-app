@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, Outlet, useRouteLoaderData } from "react-router-dom";
 import Message from "../../utils/message";
 import formatDate from "../../utils/formatDate";
-import styles from "./SummaryMessage.module.css";
+import styles from "./summaryMessage.module.css";
 
 export function summaryMessageLoader({ params }) {
   return params;
