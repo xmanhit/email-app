@@ -12,6 +12,7 @@ function App() {
     {
       index: true,
       async lazy() {
+        console.log(1);
         let { mainLoader } = await import("./pages/Main");
         return {
           loader: mainLoader,
