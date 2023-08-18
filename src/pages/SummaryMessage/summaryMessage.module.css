@@ -32,7 +32,7 @@
           .wrapper {
             .info,
             .title,
-            .description {
+            .content {
               color: white;
             }
           }
